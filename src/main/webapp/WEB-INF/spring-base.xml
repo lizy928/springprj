@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:db.properties</value>
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <import resource="dataSource.xml"/>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.lizy.*"/>
+
+    <aop:aspectj-autoproxy/>
+
+    <!-- 以静态变量保存Spring ApplicationContext 方便获取 -->
+    <bean id="springContextHolder" class="com.lizy.springprj.util.SpringContextHolder" lazy-init="false"/>
+
+    <!--定时任务，注解方式-->
+    <task:annotation-driven/>
+
+    <bean id="callerRunsPolicy" class="java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy"/>
+    <bean id="serviceLogExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="threadNamePrefix" value="serviceLogExecutor-"/>
+        <property name="corePoolSize" value="1" />
+        <property name="maxPoolSize" value="5" />
+        <property name="queueCapacity" value="200" />
+        <property name="keepAliveSeconds" value="60" />
+        <property name="rejectedExecutionHandler" ref="callerRunsPolicy"/>
+    </bean>
+
+    <bean id="rechargeAspectExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="threadNamePrefix" value="rechargeAspectExecutor-"/>
+        <property name="corePoolSize" value="1" />
+        <property name="maxPoolSize" value="1" />
+        <property name="queueCapacity" value="200" />
+        <property name="rejectedExecutionHandler" ref="callerRunsPolicy"/>
+    </bean>
+
+</beans>
