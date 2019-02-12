@@ -7,7 +7,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 
 import java.util.concurrent.TimeUnit;
-
 public class BaseRedis extends RedisPool {
     private static final Logger log = LogConstant.commonLog;
     //使用threadLocal避免释放的时候传递jedis对象

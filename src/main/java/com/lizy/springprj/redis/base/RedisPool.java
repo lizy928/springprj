@@ -3,21 +3,18 @@ package com.lizy.springprj.redis.base;
 import com.lizy.springprj.constant.CommonConstant;
 import com.lizy.springprj.util.PropertyUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by kyle on 2017/6/17.
  */
 public class RedisPool {
 
-    @Autowired
-    private JedisCluster redisCluster;
-    private GenericObjectPoolConfig config;
+    protected JedisCluster redisCluster;
+    protected GenericObjectPoolConfig config;
 
     /**
      * spring注入的时候立即执行初始化
@@ -35,7 +32,7 @@ public class RedisPool {
             config.setMaxWaitMillis(PropertyUtils.getPropertyIntValue(prefix + ".redis_max_wait", 2000));//ms
         }
         if (null == redisCluster) {
-            Set<HostAndPort> hostAndPortSet = new HashSet<>();
+            HashSet<HostAndPort> hostAndPortSet = new HashSet<>();
             String hostAndPortStr = PropertyUtils.getProperty(prefix + ".redis_cluster");
             String[] hostAndPortArray = hostAndPortStr.split(CommonConstant.COMMON_ESCAPE_STR + CommonConstant
                     .COMMA_SPLIT_STR);
