@@ -9,5 +9,8 @@
         <module name="springprj" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springprj" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
