@@ -36,6 +36,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -50,6 +51,7 @@ nbdist/
 .nb-gradle/
 
 .gradle
+.gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 
