@@ -5,7 +5,6 @@ import com.lizy.springprj.constant.RedisConstant;
 import com.lizy.springprj.redis.base.BaseRedis;
 import com.lizy.springprj.redis.base.RedisService;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.JedisCluster;
@@ -17,7 +16,7 @@ import java.io.IOException;
  */
 @Service
 public class RedisServiceImpl implements RedisService {
-    private static final Logger log = LogConstant.commonLog;
+    //private static final Logger log = LogConstant.commonLog;
 
     @Autowired
     private BaseRedis baseRedis;
@@ -151,7 +150,7 @@ public class RedisServiceImpl implements RedisService {
             try {
                 return execute(jedisCluster);
             } catch (Exception e) {
-                log.warn("RedisCommand error", e);
+               // log.warn("RedisCommand error", e);
             }
             return null;
         }

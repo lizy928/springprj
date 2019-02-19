@@ -3,14 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <!-- =================== 引入配置文件 ============================ -->
-    <bean name="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:db.properties</value>
-            </list>
-        </property>
-    </bean>
+
     <!-- =================== 连接池 ============================ -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
@@ -50,5 +43,6 @@
     </bean>
     <tx:annotation-driven transaction-manager="txManager"/>
 
-    <bean id="baseRedis" class="com.lizy.springprj.redis.base.BaseRedis" init-method="initPool"></bean>
+    <bean id="baseRedis" class="com.lizy.springprj.redis.base.BaseRedis" init-method="initPool"/>
+
 </beans>

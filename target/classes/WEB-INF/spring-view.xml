@@ -36,4 +36,11 @@
                      max-age="3600"/>
     </mvc:cors>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/login"/>
+            <bean class="com.lizy.springprj.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>
